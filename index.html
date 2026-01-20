@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unite Group - Crystal Clear</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Outfit:wght@400;800&display=swap" rel="stylesheet">
+    <!-- Thêm FontAwesome cho Icon xịn -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #0061f2;
+            --bg-light: #f8faff;
+            --text-main: #111827;
+            --text-sub: #4b5563;
+            --card-bg: rgba(255, 255, 255, 0.92); 
+            --card-border: #ffffff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            font-family: 'Space Grotesk', sans-serif;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1200px;
+        }
+
+        /* --- BACKGROUND --- */
+        .cosmic-bg {
+            position: fixed; inset: 0; z-index: -2;
+            background: linear-gradient(135deg, #ffffff 0%, #eef2f6 100%);
+        }
+
+        .orb {
+            position: absolute; border-radius: 50%;
+            filter: blur(60px); opacity: 0.6;
+            animation: orb-float 25s infinite ease-in-out alternate;
+        }
+        .orb-1 { width: 600px; height: 600px; background: #e0e7ff; top: -20%; left: -10%; }
+        .orb-2 { width: 500px; height: 500px; background: #ccfbf1; bottom: -15%; right: -15%; animation-delay: -5s; }
+        
+        @keyframes orb-float {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(30px, 20px) scale(1.05); }
+        }
+
+        /* --- MAIN CARD --- */
+        .card-wrapper {
+            width: 90%; max-width: 400px;
+            transform-style: preserve-3d;
+            transition: transform 0.1s;
+            position: relative;
+            z-index: 10;
+        }
+
+        .glass-interface {
+            position: relative;
+            background: var(--card-bg);
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border: 2px solid var(--card-border);
+            border-radius: 32px;
+            padding: 45px 25px;
+            box-shadow: 
+                0 20px 40px -10px rgba(0, 0, 0, 0.1),
+                0 0 0 1px rgba(0, 0, 0, 0.02);
+            transform-style: preserve-3d;
+        }
+
+        /* --- LOGO STYLE (Copy từ Modern Bright UI) --- */
+        .logo-card {
+            width: 140px; height: 140px;
+            margin: 0 auto 25px;
+            border-radius: 50%;
+            /* Nền kính sáng */
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(25px) saturate(180%);
+            -webkit-backdrop-filter: blur(25px) saturate(180%);
+            border: 2px solid #fff;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1), inset 0 0 20px rgba(255,255,255,0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 10;
+            transform: translateZ(30px); /* Nổi lên 3D */
+        }
+
+        /* Hiệu ứng hào quang xoay */
+        .logo-card::before {
+            content: '';
+            position: absolute;
+            inset: -8px;
+            border-radius: 50%;
+            background: conic-gradient(from 0deg, transparent, rgba(255, 215, 0, 0.4), transparent);
+            animation: rotate-glow 4s linear infinite;
+            z-index: -1;
+            filter: blur(15px);
+        }
+        @keyframes rotate-glow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        .logo-img {
+            width: 80%; height: 80%;
+            object-fit: contain;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+        }
+
+        /* --- TEXT --- */
+        .text-content { text-align: center; transform: translateZ(20px); margin-bottom: 35px; }
+        
+        h1 {
+            font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 36px;
+            color: var(--text-main);
+            margin-bottom: 5px; 
+            letter-spacing: -1.5px;
+            line-height: 1.1;
+        }
+        
+        .subtitle {
+            color: var(--primary);
+            font-size: 13px; font-weight: 700;
+            letter-spacing: 1.5px; text-transform: uppercase;
+        }
+
+        /* --- BUTTONS & GRADIENT ICONS --- */
+        .links-container {
+            display: flex; flex-direction: column; gap: 16px;
+            transform: translateZ(40px);
+        }
+
+        .cyber-btn {
+            position: relative; display: flex; align-items: center;
+            padding: 12px 16px;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 20px;
+            color: var(--text-main); text-decoration: none;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .cyber-btn:hover { 
+            transform: translateY(-3px) scale(1.02); 
+            border-color: transparent;
+            box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Icon Box Styles (Gradient chuẩn) */
+        .icon-box {
+            width: 48px; height: 48px;
+            border-radius: 14px;
+            display: flex; justify-content: center; align-items: center;
+            font-size: 20px; color: white;
+            margin-right: 16px; flex-shrink: 0;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+        }
+
+        /* Các màu Gradient */
+        .icon-sales { background: linear-gradient(135deg, #FF6B6B, #EE5D5D); }
+        .icon-cskh { background: linear-gradient(135deg, #4FACFE, #00F2FE); }
+        .icon-photo { background: linear-gradient(135deg, #FA709A, #FEE140); }
+
+        .btn-text { flex-grow: 1; }
+        .btn-text h3 { font-size: 16px; font-weight: 700; margin-bottom: 2px; color: #1f2937; }
+        .btn-text p { font-size: 13px; color: #6b7280; font-weight: 500; margin: 0; }
+        
+        .arrow { 
+            width: 30px; height: 30px; display: flex; align-items: center; justify-content: center;
+            background: #f3f4f6; border-radius: 50%;
+            color: var(--text-sub); transition: 0.3s;
+            font-size: 12px;
+        }
+        .cyber-btn:hover .arrow { 
+            background: var(--primary); color: white; transform: translateX(0); 
+        }
+
+        /* Canvas nền */
+        canvas { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
+
+    </style>
+</head>
+<body>
+
+    <div class="cosmic-bg">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+    </div>
+    
+    <canvas id="particleCanvas"></canvas>
+
+    <div class="card-wrapper" id="card">
+        <div class="glass-interface">
+            
+            <!-- Logo với hiệu ứng hào quang xoay -->
+            <div class="logo-card">
+                <img src="https://techbytruong.wordpress.com/wp-content/uploads/2025/12/unite-group-gold-doc-png-1-e1767002671511.png" alt="Unite Group" class="logo-img">
+            </div>
+
+            <div class="text-content">
+                <h1>UNITE GROUP</h1>
+                <p class="subtitle">Next-Gen Career Platform</p>
+            </div>
+
+            <div class="links-container">
+                <!-- Sales Button -->
+                <a href="https://forms.gle/sdm97vQzab58GWyr6" class="cyber-btn" target="_blank">
+                    <div class="icon-box icon-sales"><i class="fa-solid fa-arrow-trend-up"></i></div>
+                    <div class="btn-text">
+                        <h3>Sales Warriors</h3>
+                        <p>Thu nhập không giới hạn</p>
+                    </div>
+                    <div class="arrow"><i class="fa-solid fa-chevron-right"></i></div>
+                </a>
+
+                <!-- CSKH Button -->
+                <a href="https://forms.gle/Y64a52bjZz5R9huB9" class="cyber-btn" target="_blank">
+                    <div class="icon-box icon-cskh"><i class="fa-solid fa-headset"></i></div>
+                    <div class="btn-text">
+                        <h3>Customer Care</h3>
+                        <p>Giọng ngọt, Xử lý hay</p>
+                    </div>
+                    <div class="arrow"><i class="fa-solid fa-chevron-right"></i></div>
+                </a>
+
+                <!-- Photo Button -->
+                <a href="https://forms.gle/4WXUdRKAFNPfzXs89" class="cyber-btn" target="_blank">
+                     <div class="icon-box icon-photo"><i class="fa-solid fa-camera"></i></div>
+                    <div class="btn-text">
+                        <h3>Media / Photo</h3>
+                        <p>Dành cho dân mê xê dịch</p>
+                    </div>
+                    <div class="arrow"><i class="fa-solid fa-chevron-right"></i></div>
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // --- 1. 3D TILT ---
+        const card = document.getElementById('card');
+        const wrapper = document.body;
+
+        wrapper.addEventListener('mousemove', (e) => {
+            const x = (window.innerWidth / 2 - e.pageX) / 30;
+            const y = (window.innerHeight / 2 - e.pageY) / 30;
+            card.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
+        });
+        
+        wrapper.addEventListener('mouseleave', () => {
+            card.style.transform = `rotateY(0deg) rotateX(0deg)`;
+        });
+
+        window.addEventListener('deviceorientation', (e) => {
+            const x = Math.min(Math.max(e.beta, -15), 15);
+            const y = Math.min(Math.max(e.gamma, -15), 15);
+            card.style.transform = `rotateY(${y}deg) rotateX(${x}deg)`;
+        });
+
+
+        // --- 2. PARTICLES ---
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+        let particlesArray;
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        class Particle {
+            constructor(x, y) {
+                this.x = x; this.y = y;
+                this.size = Math.random() * 2 + 1;
+                this.speedX = (Math.random() * 0.4) - 0.2;
+                this.speedY = (Math.random() * 0.4) - 0.2;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x > canvas.width || this.x < 0) this.speedX = -this.speedX;
+                if (this.y > canvas.height || this.y < 0) this.speedY = -this.speedY;
+            }
+            draw() {
+                ctx.fillStyle = '#94a3b8';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function init() {
+            particlesArray = [];
+            let numberOfParticles = (canvas.width * canvas.height) / 20000;
+            for (let i = 0; i < numberOfParticles; i++) {
+                let x = Math.random() * canvas.width;
+                let y = Math.random() * canvas.height;
+                particlesArray.push(new Particle(x, y));
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+                particlesArray[i].draw();
+                
+                for (let j = i; j < particlesArray.length; j++) {
+                    const dx = particlesArray[i].x - particlesArray[j].x;
+                    const dy = particlesArray[i].y - particlesArray[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (distance < 120) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(148, 163, 184, ${0.3 - distance/400})`;
+                        ctx.lineWidth = 0.8;
+                        ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
+                        ctx.lineTo(particlesArray[j].x, particlesArray[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            init();
+        });
+
+        init();
+        animate();
+
+    </script>
+</body>
+</html>
